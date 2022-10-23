@@ -52,6 +52,14 @@ module.exports = {
     'react/jsx-no-useless-fragment': 'off',
     'react/button-has-type': 'off',
     'no-shadow': 'off',
+    'jsx-a11y/alt-text': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
+    'react/style-prop-object': 'off',
+    'react/no-unescaped-entities': 'off',
+    'react/destructuring-assignment': 'off',
+    'prefer-const': 'off',
+    'no-unused-vars': 'off',
+    'max-len': [200],
     camelcase: 'off'
   },
 }
