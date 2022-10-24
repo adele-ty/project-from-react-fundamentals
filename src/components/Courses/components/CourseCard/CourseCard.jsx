@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from '../../../../common/Button'
 import { StyledCourseCard } from '../../../../common/CommonHTML'
-import { mockedAuthorsList } from '../../../../constants'
+import { authorsContext } from '../../../../helpers/context'
 import getDuration from '../../../../helpers/getCourseDuration'
 
 export default function CourseCard(props) {
+  const { allAuthors } = useContext(authorsContext)
   const {
     title, description, creationDate, duration, authors
   } = props.item
   const formatCreation = creationDate.split('/').join('.')
   let authorArr = []
   authors.forEach((element) => {
-    mockedAuthorsList.filter((item) => {
+    allAuthors.filter((item) => {
       if (item.id === element) authorArr.push(item.name)
     })
   })

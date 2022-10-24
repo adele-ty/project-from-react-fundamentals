@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { nanoid } from 'nanoid'
 import Input from '../../common/Input'
 import Button from '../../common/Button'
@@ -16,13 +16,15 @@ export default function CreateCourse() {
 
   const [authorsAndDuration, setAuthorDuration] = useState({})
   let authorsId = []
-  let info = {}
+  let courseInfo = useRef({})
 
   const inputTitle = (e) => {
-    info = {...info, title: e.target.value}
+    console.log('input')
+    courseInfo.current = { ...courseInfo.current, title: e.target.value }
   }
   const inputDesc = (e) => {
-    info = {...info, description: e.target.value}
+    console.log('desc')
+    courseInfo.current = { ...courseInfo.current, description: e.target.value }
   }
   const createCourse = () => {
     const { duration, authors } = authorsAndDuration
@@ -30,16 +32,15 @@ export default function CreateCourse() {
     const creationDate = `${new Date().getMonth()}/${new Date().getDate()}/${new Date().getFullYear()}`
     authors.forEach((item) => {
       allAuthors.filter((author) => {
-        if (author.name === item) 
-        authorsId.push(author.id)
+        if (author.name === item) { authorsId.push(author.id) }
       })
     })
 
-    console.log(info)
-    info = {...info, duration, authors: authorsId, id, creationDate}
-    console.log(info)
+    courseInfo.current = {
+      ...courseInfo.current, duration, authors: authorsId, id, creationDate
+    }
 
-    setCourseList([...CourseList, info])
+    setCourseList([...CourseList, courseInfo.current])
     setTooglePage(false)
   }
   const getAuthorsAndDuration = (authorsDuration) => {
