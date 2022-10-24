@@ -4,7 +4,9 @@ import { nanoid } from 'nanoid'
 import AuthorItem from '../AuthorItem/AuthorItem'
 import Input from '../../../common/Input'
 import Button from '../../../common/Button'
-import { Span, Column, Box, AddAuthor, Line, Authors } from '../../../common/CommonHTML'
+import {
+  Span, Column, Box, AddAuthor, Line, Authors
+} from '../../../common/CommonHTML'
 import { authorsContext } from '../../../helpers/context'
 import getDuration from '../../../helpers/getCourseDuration'
 
@@ -78,7 +80,10 @@ export default function AddAuthors(props) {
             >
             </Input>
           </Column>
-          <span>Duration:{duration}hours
+          <span>
+            Duration:
+            {duration}
+            hours
           </span>
         </AddAuthor>
         <Authors>

@@ -19,11 +19,11 @@ export default function CreateCourse() {
   let courseInfo = useRef({})
 
   const inputTitle = (e) => {
-    console.log('input');
+    console.log('input')
     courseInfo.current = { ...courseInfo.current, title: e.target.value }
   }
   const inputDesc = (e) => {
-    console.log('desc');
+    console.log('desc')
     courseInfo.current = { ...courseInfo.current, description: e.target.value }
   }
   const createCourse = () => {
@@ -32,12 +32,13 @@ export default function CreateCourse() {
     const creationDate = `${new Date().getMonth()}/${new Date().getDate()}/${new Date().getFullYear()}`
     authors.forEach((item) => {
       allAuthors.filter((author) => {
-        if (author.name === item)
-          authorsId.push(author.id)
+        if (author.name === item) { authorsId.push(author.id) }
       })
     })
 
-    courseInfo.current = { ...courseInfo.current, duration, authors: authorsId, id, creationDate }
+    courseInfo.current = {
+      ...courseInfo.current, duration, authors: authorsId, id, creationDate
+    }
 
     setCourseList([...CourseList, courseInfo.current])
     setTooglePage(false)

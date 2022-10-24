@@ -59,7 +59,7 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'prefer-const': 'off',
     'no-unused-vars': 'off',
-    'max-len': [200],
+    'max-len': 'off',
     camelcase: 'off'
   },
 }
