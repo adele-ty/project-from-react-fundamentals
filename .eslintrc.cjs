@@ -60,6 +60,7 @@ module.exports = {
     'prefer-const': 'off',
     'no-unused-vars': 'off',
     'max-len': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
     camelcase: 'off'
   },
 }

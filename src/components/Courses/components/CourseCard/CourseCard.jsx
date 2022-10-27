@@ -1,32 +1,22 @@
 import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../../../common/Button'
 import { StyledCourseCard } from '../../../../common/CommonHTML'
 import { authorsContext } from '../../../../helpers/context'
 import getDuration from '../../../../helpers/getCourseDuration'
+import formatCreationDate from '../../../../helpers/formatCreation'
+import getAuthorList from '../../../../helpers/getAuthorList'
 
 export default function CourseCard(props) {
-  const { allAuthors } = useContext(authorsContext)
+  const navigate = useNavigate()
   const {
-    title, description, creationDate, duration, authors
+    id, title, description, creationDate, duration, authors
   } = props.item
-  const formatCreation = creationDate.split('/').join('.')
-  let authorArr = []
-  authors.forEach((element) => {
-    allAuthors.filter((item) => {
-      if (item.id === element) authorArr.push(item.name)
-    })
-  })
-  const authorList = authorArr.map((item, index) => {
-    let span = ''
-    if (index !== 0) {
-      span = `, ${item}`
-    } else {
-      span = `${item}`
-    }
-    return (
-      <span key={item}>{span}</span>
-    )
-  })
+  const formatCreation = formatCreationDate(creationDate)
+  const authorList = getAuthorList(authors)
+  const showCourse = () => {
+    navigate(`/courses/:${id}`)
+  }
   const courseDuration = getDuration(duration)
   return (
     <StyledCourseCard id="green">
@@ -47,7 +37,7 @@ export default function CourseCard(props) {
           <span id="info">Created: </span>
           <span>{formatCreation}</span>
         </div>
-        <Button buttonText="Show course"></Button>
+        <Button buttonText="Show course" clickEvent={showCourse}></Button>
       </div>
     </StyledCourseCard>
   )
