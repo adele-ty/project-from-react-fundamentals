@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../../../common/Button'
 import { StyledCourseCard } from '../../../../common/CommonHTML'
-import { authorsContext } from '../../../../helpers/context'
 import getDuration from '../../../../helpers/getCourseDuration'
 import formatCreationDate from '../../../../helpers/formatCreation'
 import getAuthorList from '../../../../helpers/getAuthorList'
 
-export default function CourseCard(props) {
+function CourseCard(props) {
   const navigate = useNavigate()
   const {
     id, title, description, creationDate, duration, authors
@@ -42,3 +42,16 @@ export default function CourseCard(props) {
     </StyledCourseCard>
   )
 }
+
+CourseCard.propTypes = {
+  items: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    creationDate: PropTypes.string,
+    duration: PropTypes.number,
+    authors: PropTypes.arrayOf(PropTypes.string)
+  }),
+}
+
+export default CourseCard

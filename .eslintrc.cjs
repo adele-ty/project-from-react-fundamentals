@@ -61,6 +61,8 @@ module.exports = {
     'no-unused-vars': 'off',
     'max-len': 'off',
     'react/jsx-no-constructed-context-values': 'off',
+    'react/no-typos': 'off',
+    'react/require-default-props': 'off',
     camelcase: 'off'
   },
 }
