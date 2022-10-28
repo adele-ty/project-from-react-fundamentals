@@ -18,7 +18,7 @@ export default function Header() {
     if (pathname === '/login' || pathname === '/registration') { return <></> }
     return (
       <>
-        <span>{currentUser.name}</span>
+        <span>{currentUser.email}</span>
         <Button buttonText="Logout" clickEvent={clickButton} />
       </>
     )

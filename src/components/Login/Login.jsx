@@ -1,63 +1,55 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { message } from 'antd'
 import { currentUserContext } from '../../helpers/context'
 import { RegisterLogin, Column, Span } from '../../common/CommonHTML'
 import Input from '../../common/Input'
 import Button from '../../common/Button'
+import getInfo from '../../helpers/getLoginOrRegisterInfo'
 
 export default function Login() {
-  const { currentUser, setCurrentUser } = useContext(currentUserContext)
+  const { setCurrentUser } = useContext(currentUserContext)
   const navigate = useNavigate()
   let loginInfo = {}
   function inputInfo(e, field) {
-    switch (field) {
-    case 'name':
-      loginInfo = { ...loginInfo, name: e.target.value }
-      break
-    case 'email':
-      loginInfo = { ...loginInfo, email: e.target.value }
-      break
-    case 'psd':
-      loginInfo = { ...loginInfo, password: e.target.value }
-      break
-    default:
-      break
-    }
+    const info = getInfo(loginInfo, e, field)
+    loginInfo = { ...info }
   }
 
   async function submitForm(e) {
-    const { data: res } = await axios.post('http://localhost:4000/login', loginInfo)
-    window.localStorage.setItem('token', res.result)
-    if (window.localStorage.getItem('token')) {
-      setCurrentUser({ ...loginInfo })
-      console.log(loginInfo)
-      console.log(currentUser)
-      e.preventDefault()
-      navigate('/courses', { replace: true })
-    }
+    e.preventDefault()
+    await axios.post('http://localhost:4000/login', loginInfo).catch(() => {
+      message.error('Please input email and password correctly!')
+    }).then((res) => {
+      window.localStorage.setItem('token', res.data.result)
+      if (window.localStorage.getItem('token')) {
+        setCurrentUser({ ...loginInfo })
+        navigate('/courses')
+      }
+    })
   }
 
   return (
     <RegisterLogin id="blue">
-      {/* <form onSubmit={submitForm}> */}
-      <Column>
-        <Span>Login</Span>
+      <form onSubmit={submitForm}>
         <Column>
-          <span>Email</span>
-          <Input placeholder="Enter email" changeEvent={(e) => inputInfo(e, 'email')}></Input>
+          <Span>Login</Span>
+          <Column>
+            <span>Email</span>
+            <Input placeholder="Enter email" changeEvent={(e) => inputInfo(e, 'email')}></Input>
+          </Column>
+          <Column>
+            <span>Password</span>
+            <Input type="password" placeholder="Enter password" changeEvent={(e) => inputInfo(e, 'psd')}></Input>
+          </Column>
+          <Button buttonText="Login" type="submit"></Button>
+          <div>
+            <span>If you not have an account you can </span>
+            <Link to="/registration">Registration</Link>
+          </div>
         </Column>
-        <Column>
-          <span>Password</span>
-          <Input type="password" placeholder="Enter password" changeEvent={(e) => inputInfo(e, 'psd')}></Input>
-        </Column>
-        <Button buttonText="Login" type="submit" clickEvent={submitForm}></Button>
-        <div>
-          <span>If you not have an account you can </span>
-          <Link to="/registration">Registration</Link>
-        </div>
-      </Column>
-      {/* </form> */}
+      </form>
     </RegisterLogin>
   )
 }

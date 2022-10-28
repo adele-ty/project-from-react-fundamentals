@@ -30,6 +30,7 @@ export const StyledButton = styled.button`
 export const Span = styled.span`
     font-weight: bold;
     font-size: x-large;
+    text-align: center;
 `
 export const Column = styled.div`
     display: flex;
