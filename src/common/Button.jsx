@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import { StyledButton } from './CommonHTML'
 
 function Button(props) {
-  const { buttonText, clickEvent } = props
+  const {
+    buttonText, clickEvent, id, children
+  } = props
+  const content = id === 'smallBtn' ? children : buttonText
   return (
-    <StyledButton onClick={clickEvent}>{buttonText}</StyledButton>
+    <StyledButton id={id} onClick={clickEvent}>{content}</StyledButton>
   )
 }
 

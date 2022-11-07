@@ -1,8 +1,8 @@
-import { useContext } from 'react'
-import { authorsContext } from './context'
+import { useSelector } from 'react-redux'
+import { selectAuthor } from '../store/authors/authorSlice'
 
 export default function getAuthorList(authors) {
-  const { allAuthors } = useContext(authorsContext)
+  const allAuthors = useSelector(selectAuthor)
   let authorArr = []
 
   authors.forEach((element) => {

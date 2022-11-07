@@ -1,24 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../common/Button'
 import Logo from './Logo/Logo'
-import { currentUserContext } from '../../helpers/context'
-import { HeaderBox } from '../../common/CommonHTML'
+import { selectUserName, setCurrentUser } from '../../store/user/userSlice'
+import { HeaderBox } from './style'
 
 export default function Header() {
-  const { currentUser, setCurrentUser } = useContext(currentUserContext)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const username = useSelector(selectUserName)
   const { pathname } = useLocation()
   const clickButton = () => {
     window.localStorage.removeItem('token')
-    setCurrentUser({})
+    dispatch(setCurrentUser({}))
     navigate('/login', { replace: true })
   }
   function LogoutButton() {
     if (pathname === '/login' || pathname === '/registration') { return <></> }
     return (
       <>
-        <span>{currentUser.email}</span>
+        <span>{username}</span>
         <Button buttonText="Logout" clickEvent={clickButton} />
       </>
     )
