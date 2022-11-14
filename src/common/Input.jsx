@@ -7,7 +7,13 @@ const Input = forwardRef((props, ref) => {
     placeholder, changeEvent, type
   } = props
   return (
-    <StyledInput type={type} placeholder={placeholder} onChange={changeEvent} ref={ref}></StyledInput>
+    <StyledInput
+      type={type}
+      placeholder={placeholder}
+      onChange={changeEvent}
+      ref={ref}
+    >
+    </StyledInput>
   )
 })
 
