@@ -3,17 +3,17 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../common/Button'
 import Logo from './Logo/Logo'
-import { selectUserName, setCurrentUser } from '../../store/user/userSlice'
+import { selectUserName } from '../../store/user/userSlice'
 import { HeaderBox } from './style'
+import { userLogout } from '../../api'
 
 export default function Header() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const username = useSelector(selectUserName)
   const { pathname } = useLocation()
   const clickButton = () => {
-    window.localStorage.removeItem('token')
-    dispatch(setCurrentUser({}))
+    userLogout()
+    localStorage.clear()
     navigate('/login', { replace: true })
   }
   function LogoutButton() {

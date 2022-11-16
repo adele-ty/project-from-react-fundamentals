@@ -63,6 +63,7 @@ module.exports = {
     'react/jsx-no-constructed-context-values': 'off',
     'react/no-typos': 'off',
     'react/require-default-props': 'off',
+    'prefer-destructuring': 'off',
     camelcase: 'off'
   },
 }

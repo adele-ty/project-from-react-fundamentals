@@ -8,14 +8,17 @@ export const userSlice = createSlice({
       name: '',
       email: '',
       token: '',
+      role: ''
     }
   },
   reducers: {
     setCurrentUser: (state, action) => {
       const isLogout = action.payload === {}
-      const { email, name, token } = action.payload
+      const {
+        email, name, token, role
+      } = action.payload
       state.currentUser = {
-        email, name, token, isAuth: !isLogout
+        email, name, token, role, isAuth: !isLogout
       }
       window.localStorage.setItem('currentUser', JSON.stringify(state.currentUser))
     }

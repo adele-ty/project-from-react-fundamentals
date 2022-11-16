@@ -14,7 +14,7 @@ export default function Router() {
       <Route path="/registration" element={<Registration />}></Route>
       <Route path="/courses" element={<Courses />}></Route>
       <Route path="/courses/:courseId" element={<CourseInfo />}></Route>
-      <Route path="/courses/add" element={<CreateCourse />}></Route>
+      <Route path="/courses/add/:courseId" element={<CreateCourse />}></Route>
     </Routes>
   )
 }

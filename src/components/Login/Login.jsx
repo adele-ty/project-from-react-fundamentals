@@ -9,7 +9,9 @@ import getInfo from '../../helpers/getLoginOrRegisterInfo'
 import { getCourses } from '../../store/courses/courseSlice'
 import { getAuthors } from '../../store/authors/authorSlice'
 import { setCurrentUser } from '../../store/user/userSlice'
-import { getCourseList, getAuthorsList, userLogin } from '../../api'
+import {
+  getCourseList, getAuthorsList, userLogin, getMe
+} from '../../api'
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -32,7 +34,10 @@ export default function Login() {
       window.localStorage.setItem('token', res.result)
       const token = window.localStorage.getItem('token')
       if (token) {
-        dispatch(setCurrentUser({ ...loginInfo, token, name: res.user.name }))
+        const res = await getMe()
+        dispatch(setCurrentUser({
+          ...loginInfo, token, name: res.name, role: res.role
+        }))
       }
       setCoursesAndAuthors()
       navigate('/courses')
