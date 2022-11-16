@@ -7,14 +7,27 @@ import { selectCourses } from '../../store/courses/courseSlice'
 
 export default function Courses() {
   const CourseList = useSelector(selectCourses)
+  const [isSearch, setIsSearch] = useState('noSearch')
   const [showList, setShowList] = useState([...CourseList])
-  const courseItems = showList.map((item) => {
-    return <CourseCard key={item.id} item={item} />
-  })
+  let courseItems = null
+  if (isSearch === 'noSearch') {
+    courseItems = CourseList.map((item) => {
+      return <CourseCard key={item.id} item={item} />
+    })
+  } else {
+    courseItems = showList.map((item) => {
+      return <CourseCard key={item.id} item={item} />
+    })
+  }
 
   const getSearchCourses = (matchedCoursesList, isSearch) => {
-    if (isSearch === 'isSearch') setShowList([...matchedCoursesList])
-    if (isSearch === 'noSearch') setShowList([...CourseList])
+    if (isSearch === 'isSearch') {
+      setShowList([...matchedCoursesList])
+      setIsSearch(isSearch)
+    }
+    if (isSearch === 'noSearch') {
+      setIsSearch(isSearch)
+    }
   }
 
   return (
