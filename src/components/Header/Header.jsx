@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Button from '../../common/Button'
 import Logo from './Logo/Logo'
 import { selectUserName } from '../../store/user/userSlice'
