@@ -8,9 +8,10 @@ padding: 5px 10px;
 `
 export const StyledButton = styled.button`
     border-radius: 4px;
-    width: 105px;
+    width: ${(props) => (props.id === 'smallBtn' ? '35px' : '105px')};
     height: 30px;
-    padding: 7px;
+    margin-left: ${(props) => (props.id === 'smallBtn' ? '15px' : '')};
+    padding: ${(props) => (props.id === 'smallBtn' ? '4px' : '7px')};
     color: #bac7e5;
     background-color: papayawhip;
     border-color: papayawhip;
@@ -26,6 +27,10 @@ export const StyledButton = styled.button`
         border-color: #abadd4;
         color: #abadd4;
     }
+    & > img {
+        width: 100%;
+        height: 100%;
+    }
 `
 export const Span = styled.span`
     font-weight: bold;
@@ -36,10 +41,7 @@ export const Column = styled.div`
     display: flex;
     flex-direction: column;
 `
-export const Row = styled.div`
-    display: flex;
-    flex-direction: row;
-`
+
 export const Box = styled.div`
     border: 1px solid ${(props) => {
     if (props.id === 'blue') return 'rgb(107, 184, 229)'
@@ -49,119 +51,7 @@ export const Box = styled.div`
   }};
     padding: 20px;
 `
-export const HeaderBox = styled(Box)`
-display: flex;
-flex-direction: row;
-& > img {
-    width: 36px;
-    height: 36px;
-}
-& > span {
-    margin-left: auto;
-    margin-right: 20px;
-    color: green;
-    height: 36px;
-    line-height: 36px;
-}
-& > button {
-    margin-right: 10px;
-    margin-top: 2px;
-}
-`
-export const StyledCourseCard = styled(Box)`
-display: flex;
-flex-direction: row;
-margin-top: 25px;
-& > * {
-    display: flex;
-    flex-direction: column;
-}
-& > :first-child {
-    flex: 7;
-    & > :first-child {
-        margin-top: -5px;
-        font-weight: bold;
-        font-size: xx-large;
-        margin-bottom: 20px;
-    }
-}
-& > :last-child {
-    padding-left: 30px;
-    flex: 3;
-    & > div {
-        margin-bottom: 10px;
-        & > #info {
-            font-weight: bold;
-            font-size: medium;
-        }
-    }
-    & > button {
-        margin: auto auto 0 auto;
-    }
-}
-`
-export const StyledSearchBar = styled.div`
-    height: 30px;
-    display: flex;
-    flex-direction: row;
-    & > * {
-        box-sizing: content-box;
-        height: 18px;
-    }
-    & > input {
-        width: 300px;
-        margin-right: 30px;
-    }
-    & > :last-child {
-        margin-right: 0;
-        margin-left: auto;
-    }
-`
-export const StyledCourses = styled(Box)`
-margin-top: 20px;
-& > ul {
-    padding: 0;
-}
-`
-export const StyledCreateCourse = styled(Box)`
-margin-top: 20px;
-display: flex;
-flex-direction: column;
-& > div {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    & span {
-        margin-bottom: 10px;
-    }
-    & textarea {
-        border: 1px solid rgb(239, 236, 142);
-    }
-}
-& > :first-child {
-    & > div {
-        display: flex;
-    }
-    & input {
-        width: 200px;
-        height: 30px;
-    }
-    & button {
-        padding: 7px;
-        margin-left: auto;
-        height: 30px;
-        margin-right: 0;
-    }
-}
-`
-export const StyledAuthorItem = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 15px;
-    & > * {
-        flex: 1;
-    }
-`
+
 export const AddAuthor = styled(Column)`
     & > div {
         margin-bottom: 20px;
@@ -180,14 +70,11 @@ export const Authors = styled(AddAuthor)`
         list-style: none;
     }
 `
-export const Line = styled(Row)`
-    & > div {
-        flex: 1;
-    }
-    & > :first-child {
-        margin-right: 100px;
-    }
+export const Row = styled.div`
+    display: flex;
+    flex-direction: row;
 `
+
 export const RegisterLogin = styled(Box)`
     margin-top: 20px;
     & > form > div {
@@ -207,30 +94,5 @@ export const RegisterLogin = styled(Box)`
     & button {
         width: 100px;
         margin: 5px auto;
-    }
-`
-export const CourseInfoCard = styled(Box)`
-    margin-top: 25px;
-    & > #title {
-        text-align: center;
-        margin-bottom: 50px;
-    }
-    & > :last-child {
-        & > :first-child {
-            flex: 7;
-            margin-right: 50px;
-        }
-        & > :last-child {
-            flex: 3;
-        }
-    }
-    & #span {
-        height: 28px;
-        line-height: 21px;
-        font-weight: bold;
-        font-size: medium;
-    }
-    & .ant-page-header,.site-page-header,.ant-page-header-ghost {
-        padding: 0;
     }
 `

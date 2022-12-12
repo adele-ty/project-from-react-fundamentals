@@ -1,28 +1,28 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../../../common/Button'
 import Input from '../../../../common/Input'
-import { StyledSearchBar } from '../../../../common/CommonHTML'
-import { mockedCoursesList } from '../../../../constants'
-import { courseListContext } from '../../../../helpers/context'
+import { StyledSearchBar } from './style'
+import { selectCourses, getCourses } from '../../../../store/courses/courseSlice'
 
 export default function SearchBar() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState('')
-  const listCourse = useContext(courseListContext)
-  const { setCourseList } = listCourse
+  let courseList = useSelector(selectCourses)
   let courseMatched = []
   const changeInput = (event) => {
     setInputValue(event.target.value)
   }
   const clickSearch = () => {
-    if (inputValue.trim() === '') setCourseList(mockedCoursesList)
+    if (inputValue.trim() === '') dispatch(getCourses(courseList))
     else {
       let reg = new RegExp(`${inputValue.trim()}`, 'i')
-      courseMatched = mockedCoursesList.filter((item) => {
+      courseMatched = courseList.filter((item) => {
         return item.id.match(reg) || item.title.match(reg)
       })
-      setCourseList(courseMatched)
+      dispatch(getCourses(courseMatched))
     }
   }
   const togglePage = () => {

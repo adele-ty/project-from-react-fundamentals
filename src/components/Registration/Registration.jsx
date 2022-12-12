@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { message } from 'antd'
 import { Span, Column, RegisterLogin } from '../../common/CommonHTML'
 import Button from '../../common/Button'
 import Input from '../../common/Input'
 import getInfo from '../../helpers/getLoginOrRegisterInfo'
+import { userRegister } from '../../api'
 
 export default function Registration() {
   const navigate = useNavigate()
@@ -18,7 +18,7 @@ export default function Registration() {
     e.preventDefault()
     if (registerInfo.password.length < 6) message.warning('password length should be 6 characters minimum')
     else {
-      await axios.post('http://localhost:4000/register', registerInfo)
+      userRegister(registerInfo)
       navigate('/login', { replace: true })
     }
   }

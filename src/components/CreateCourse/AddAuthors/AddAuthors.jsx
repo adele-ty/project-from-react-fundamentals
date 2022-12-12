@@ -2,35 +2,35 @@ import React, { useContext, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { message } from 'antd'
 import { nanoid } from 'nanoid'
+import { useDispatch, useSelector } from 'react-redux'
 import AuthorItem from '../AuthorItem/AuthorItem'
 import Input from '../../../common/Input'
 import Button from '../../../common/Button'
 import {
-  Span, Column, Box, AddAuthor, Line, Authors
+  Span, Column, Box, AddAuthor, Authors
 } from '../../../common/CommonHTML'
-import { authorsContext } from '../../../helpers/context'
+import { Line } from './style'
+import { selectAuthor, addAuthor } from '../../../store/authors/authorSlice'
 import getDuration from '../../../helpers/getCourseDuration'
 
 function AddAuthors(props) {
-  const allAuthorsList = useContext(authorsContext)
-  const { allAuthors, setAllAuthors } = allAuthorsList
+  const dispatch = useDispatch()
+  const allAuthors = useSelector(selectAuthor)
   const { passAuthorsDuration } = props
   const [duration, setDuration] = useState(' 00 : 00 ')
 
-  let authorName = useRef('')
+  let authorName = useRef(null)
   let authorId = useRef('')
   const [selectedAuthors, setSelectedAuthors] = useState([])
 
-  const inputAuthorName = (e) => {
-    authorName = e.target.value
-  }
   const createAuthor = () => {
+    const inputAuthorName = authorName.current.value
     const isFind = allAuthors.find((ele) => {
-      return ele.name === authorName
+      return ele.name === inputAuthorName
     })
     if (!isFind) {
       authorId = nanoid()
-      setAllAuthors([...allAuthors, { id: authorId, name: authorName }])
+      dispatch(addAuthor({ id: authorId, name: inputAuthorName }))
     } else {
       message.warning('The author already exists!')
     }
@@ -60,7 +60,7 @@ function AddAuthors(props) {
           <Span>Add author</Span>
           <Column>
             <span>Author name</span>
-            <Input placeholder="Enter author name..." changeEvent={inputAuthorName}></Input>
+            <Input placeholder="Enter author name..." ref={authorName}></Input>
           </Column>
           <Button buttonText="Create author" clickEvent={createAuthor}></Button>
         </AddAuthor>

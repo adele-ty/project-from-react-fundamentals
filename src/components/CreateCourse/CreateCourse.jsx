@@ -1,18 +1,22 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, {
+  useState, useRef
+} from 'react'
 import { nanoid } from 'nanoid'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
 import Input from '../../common/Input'
 import Button from '../../common/Button'
 import AddAuthors from './AddAuthors/AddAuthors'
-import { StyledCreateCourse } from '../../common/CommonHTML'
-import { courseListContext, authorsContext } from '../../helpers/context'
+import { StyledCreateCourse } from './style'
+import { addCourses } from '../../store/courses/courseSlice'
+import { selectAuthor } from '../../store/authors/authorSlice'
 
 export default function CreateCourse() {
   const navigate = useNavigate()
-  const { CourseList, setCourseList } = useContext(courseListContext)
+  const dispatch = useDispatch()
 
-  const allAuthorsList = useContext(authorsContext)
-  const { allAuthors } = allAuthorsList
+  const allAuthors = useSelector(selectAuthor)
 
   const [authorsAndDuration, setAuthorDuration] = useState({})
   let authorsId = []
@@ -24,7 +28,7 @@ export default function CreateCourse() {
   const inputDesc = (e) => {
     courseInfo.current = { ...courseInfo.current, description: e.target.value }
   }
-  const createCourse = () => {
+  const createCourse = async () => {
     const { duration, authors } = authorsAndDuration
     const id = nanoid()
     const creationDate = `${new Date().getMonth()}/${new Date().getDate()}/${new Date().getFullYear()}`
@@ -33,14 +37,13 @@ export default function CreateCourse() {
         if (author.name === item) { authorsId.push(author.id) }
       })
     })
-
     courseInfo.current = {
-      ...courseInfo.current, duration, authors: authorsId, id, creationDate
+      ...courseInfo.current, duration: duration * 1, authors: authorsId, id, creationDate
     }
 
-    setCourseList([...CourseList, courseInfo.current])
-    const nextPage = '/courses'
-    navigate(nextPage, { replace: true })
+    // await axios.post('http://localhost:4000/courses/add', { ...courseInfo.current })
+    dispatch(addCourses(courseInfo.current))
+    navigate('/courses', { replace: true })
   }
   const getAuthorsAndDuration = (authorsDuration) => {
     setAuthorDuration(authorsDuration)

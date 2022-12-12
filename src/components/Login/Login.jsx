@@ -1,35 +1,44 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { message } from 'antd'
-import { currentUserContext } from '../../helpers/context'
 import { RegisterLogin, Column, Span } from '../../common/CommonHTML'
 import Input from '../../common/Input'
 import Button from '../../common/Button'
 import getInfo from '../../helpers/getLoginOrRegisterInfo'
+import { getCourses } from '../../store/courses/courseSlice'
+import { getAuthors } from '../../store/authors/authorSlice'
+import { setCurrentUser } from '../../store/user/userSlice'
+import { getCourseList, getAuthorsList, userLogin } from '../../api'
 
 export default function Login() {
-  const { setCurrentUser } = useContext(currentUserContext)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   let loginInfo = {}
   function inputInfo(e, field) {
     const info = getInfo(loginInfo, e, field)
     loginInfo = { ...info }
   }
-
-  async function submitForm(e) {
+  const setCoursesAndAuthors = async () => {
+    const courses = await getCourseList()
+    dispatch(getCourses(courses.result))
+    const authors = await getAuthorsList()
+    dispatch(getAuthors(authors.result))
+  }
+  const submitForm = async (e) => {
     e.preventDefault()
-    await axios.post('http://localhost:4000/login', loginInfo).then((res) => {
-      window.localStorage.setItem('token', res.data.result)
-      if (window.localStorage.getItem('token')) {
-        setCurrentUser({ ...loginInfo })
-        navigate('/courses')
+    const res = await userLogin(loginInfo)
+    if (res.successful) {
+      window.localStorage.setItem('token', res.result)
+      const token = window.localStorage.getItem('token')
+      if (token) {
+        dispatch(setCurrentUser({ ...loginInfo, token, name: res.user.name }))
       }
-    }).catch(() => {
-      const errorMsg = 'Please input email and password correctly!'
-      message.error(errorMsg)
-      throw Error(errorMsg)
-    })
+      setCoursesAndAuthors()
+      navigate('/courses')
+    } else {
+      message.error('Please input email and password correctly!')
+    }
   }
 
   return (
