@@ -1,14 +1,14 @@
 import React, { useState, useContext, useRef } from 'react'
 import { nanoid } from 'nanoid'
+import { useNavigate } from 'react-router-dom'
 import Input from '../../common/Input'
 import Button from '../../common/Button'
 import AddAuthors from './AddAuthors/AddAuthors'
 import { StyledCreateCourse } from '../../common/CommonHTML'
-import { courseListContext, authorsContext, isTogglePage } from '../../helpers/context'
+import { courseListContext, authorsContext } from '../../helpers/context'
 
 export default function CreateCourse() {
-  const tooglePageContext = useContext(isTogglePage)
-  const { setTooglePage } = tooglePageContext
+  const navigate = useNavigate()
   const { CourseList, setCourseList } = useContext(courseListContext)
 
   const allAuthorsList = useContext(authorsContext)
@@ -19,11 +19,9 @@ export default function CreateCourse() {
   let courseInfo = useRef({})
 
   const inputTitle = (e) => {
-    console.log('input')
     courseInfo.current = { ...courseInfo.current, title: e.target.value }
   }
   const inputDesc = (e) => {
-    console.log('desc')
     courseInfo.current = { ...courseInfo.current, description: e.target.value }
   }
   const createCourse = () => {
@@ -41,7 +39,8 @@ export default function CreateCourse() {
     }
 
     setCourseList([...CourseList, courseInfo.current])
-    setTooglePage(false)
+    const nextPage = '/courses'
+    navigate(nextPage, { replace: true })
   }
   const getAuthorsAndDuration = (authorsDuration) => {
     setAuthorDuration(authorsDuration)

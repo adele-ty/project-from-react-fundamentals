@@ -1,8 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Button from '../../../common/Button'
-import { StyledAuthorItem } from '../../../common/CommonHTML' 
+import { StyledAuthorItem } from '../../../common/CommonHTML'
 
-export default function AuthorItem(props) {
+function AuthorItem(props) {
   const { authorName, selectAuthor } = props
   const addAuthors = () => {
     selectAuthor(authorName)
@@ -16,3 +17,10 @@ export default function AuthorItem(props) {
     </StyledAuthorItem>
   )
 }
+
+AuthorItem.PropTypes = {
+  authorName: PropTypes.string,
+  selectAuthor: PropTypes.func
+}
+
+export default AuthorItem

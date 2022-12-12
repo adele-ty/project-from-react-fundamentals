@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
 import { message } from 'antd'
 import { nanoid } from 'nanoid'
 import AuthorItem from '../AuthorItem/AuthorItem'
@@ -10,7 +11,7 @@ import {
 import { authorsContext } from '../../../helpers/context'
 import getDuration from '../../../helpers/getCourseDuration'
 
-export default function AddAuthors(props) {
+function AddAuthors(props) {
   const allAuthorsList = useContext(authorsContext)
   const { allAuthors, setAllAuthors } = allAuthorsList
   const { passAuthorsDuration } = props
@@ -94,3 +95,9 @@ export default function AddAuthors(props) {
     </Box>
   )
 }
+
+AddAuthors.propTypes = {
+  passAuthorsDuration: PropTypes.func
+}
+
+export default AddAuthors

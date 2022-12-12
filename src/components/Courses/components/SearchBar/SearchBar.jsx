@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../../../common/Button'
 import Input from '../../../../common/Input'
 import { StyledSearchBar } from '../../../../common/CommonHTML'
 import { mockedCoursesList } from '../../../../constants'
-import { courseListContext, isTogglePage } from '../../../../helpers/context'
+import { courseListContext } from '../../../../helpers/context'
 
 export default function SearchBar() {
+  const navigate = useNavigate()
   const [inputValue, setInputValue] = useState('')
   const listCourse = useContext(courseListContext)
   const { setCourseList } = listCourse
-  const isTooglePageContext = useContext(isTogglePage)
-  const { setTooglePage } = isTooglePageContext
   let courseMatched = []
   const changeInput = (event) => {
     setInputValue(event.target.value)
@@ -26,7 +26,8 @@ export default function SearchBar() {
     }
   }
   const togglePage = () => {
-    setTooglePage(true)
+    const nextPage = '/courses/add'
+    navigate(nextPage)
   }
   return (
     <StyledSearchBar>

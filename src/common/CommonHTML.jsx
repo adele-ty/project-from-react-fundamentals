@@ -28,9 +28,9 @@ export const StyledButton = styled.button`
     }
 `
 export const Span = styled.span`
-    text-align: center;
     font-weight: bold;
-    font-size: medium;
+    font-size: x-large;
+    text-align: center;
 `
 export const Column = styled.div`
     display: flex;
@@ -42,11 +42,11 @@ export const Row = styled.div`
 `
 export const Box = styled.div`
     border: 1px solid ${(props) => {
-        if (props.id === 'blue') return 'rgb(107, 184, 229)'
-        if (props.id === 'green') return 'green'
-        if (props.id === 'orange') return 'rgb(249, 201, 201)'
-        return 'black'
-    }};
+    if (props.id === 'blue') return 'rgb(107, 184, 229)'
+    if (props.id === 'green') return 'green'
+    if (props.id === 'orange') return 'rgb(249, 201, 201)'
+    return 'black'
+  }};
     padding: 20px;
 `
 export const HeaderBox = styled(Box)`
@@ -186,5 +186,51 @@ export const Line = styled(Row)`
     }
     & > :first-child {
         margin-right: 100px;
+    }
+`
+export const RegisterLogin = styled(Box)`
+    margin-top: 20px;
+    & > form > div {
+        & > :first-child{
+            margin-bottom: 25px;
+        }
+       margin: 0 auto;
+       width: 300px;
+       & > :last-child {
+        text-align: center;
+       }
+    }
+    & input {
+        width: 100%;
+        margin: 15px 0;
+    }
+    & button {
+        width: 100px;
+        margin: 5px auto;
+    }
+`
+export const CourseInfoCard = styled(Box)`
+    margin-top: 25px;
+    & > #title {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    & > :last-child {
+        & > :first-child {
+            flex: 7;
+            margin-right: 50px;
+        }
+        & > :last-child {
+            flex: 3;
+        }
+    }
+    & #span {
+        height: 28px;
+        line-height: 21px;
+        font-weight: bold;
+        font-size: medium;
+    }
+    & .ant-page-header,.site-page-header,.ant-page-header-ghost {
+        padding: 0;
     }
 `
