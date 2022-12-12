@@ -19,14 +19,16 @@ export default function Login() {
 
   async function submitForm(e) {
     e.preventDefault()
-    await axios.post('http://localhost:4000/login', loginInfo).catch(() => {
-      message.error('Please input email and password correctly!')
-    }).then((res) => {
+    await axios.post('http://localhost:4000/login', loginInfo).then((res) => {
       window.localStorage.setItem('token', res.data.result)
       if (window.localStorage.getItem('token')) {
         setCurrentUser({ ...loginInfo })
         navigate('/courses')
       }
+    }).catch(() => {
+      const errorMsg = 'Please input email and password correctly!'
+      message.error(errorMsg)
+      throw Error(errorMsg)
     })
   }
 

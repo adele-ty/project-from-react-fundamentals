@@ -8,20 +8,22 @@ import { HeaderBox } from '../../common/CommonHTML'
 export default function Header() {
   const { currentUser, setCurrentUser } = useContext(currentUserContext)
   const navigate = useNavigate()
-  const { pathname } = useLocation()
+  const { currentPath } = useLocation()
   const clickButton = () => {
     window.localStorage.removeItem('token')
     setCurrentUser({})
-    navigate('/login', { replace: true })
+    const nextPage = '/login'
+    navigate(nextPage, { replace: true })
   }
   function LogoutButton() {
-    if (pathname === '/login' || pathname === '/registration') { return <></> }
-    return (
-      <>
-        <span>{currentUser.email}</span>
-        <Button buttonText="Logout" clickEvent={clickButton} />
-      </>
-    )
+    if (currentPath !== '/login' && currentPath !== '/registration') {
+      return (
+        <>
+          <span>{currentUser.email}</span>
+          <Button buttonText="Logout" clickEvent={clickButton} />
+        </>
+      )
+    }
   }
   return (
     <HeaderBox id="orange">

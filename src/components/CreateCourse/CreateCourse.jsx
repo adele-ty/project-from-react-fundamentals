@@ -39,7 +39,8 @@ export default function CreateCourse() {
     }
 
     setCourseList([...CourseList, courseInfo.current])
-    navigate('/courses', { replace: true })
+    const nextPage = '/courses'
+    navigate(nextPage, { replace: true })
   }
   const getAuthorsAndDuration = (authorsDuration) => {
     setAuthorDuration(authorsDuration)
