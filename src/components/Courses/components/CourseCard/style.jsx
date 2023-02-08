@@ -4,7 +4,7 @@ import { Box } from '../../../../common/CommonHTML'
 export const BtnBox = styled.div`
     display: flex;
     flex-direction: row;
-    margin-right: 0
+    margin: 0 auto;
 `
 export const StyledCourseCard = styled(Box)`
 display: flex;
