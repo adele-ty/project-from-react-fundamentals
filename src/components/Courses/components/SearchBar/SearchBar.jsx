@@ -26,8 +26,7 @@ export default function SearchBar() {
     }
   }
   const togglePage = () => {
-    const nextPage = '/courses/add'
-    navigate(nextPage)
+    navigate('/courses/add/create')
   }
   return (
     <StyledSearchBar>
