@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { StyledInput } from './CommonHTML'
 
-function Input(props) {
-  const { placeholder, changeEvent, type } = props
+const Input = forwardRef((props, ref) => {
+  const {
+    placeholder, changeEvent, type
+  } = props
   return (
-    <StyledInput type={type} placeholder={placeholder} onChange={changeEvent}></StyledInput>
+    <StyledInput
+      type={type}
+      placeholder={placeholder}
+      onChange={changeEvent}
+      ref={ref}
+    >
+    </StyledInput>
   )
-}
+})
 
 Input.defaultProps = {
   placeholder: 'Please enter something'

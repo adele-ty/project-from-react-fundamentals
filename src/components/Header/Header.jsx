@@ -1,29 +1,29 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../common/Button'
 import Logo from './Logo/Logo'
-import { currentUserContext } from '../../helpers/context'
-import { HeaderBox } from '../../common/CommonHTML'
+import { selectUserName } from '../../store/user/userSlice'
+import { HeaderBox } from './style'
+import { userLogout } from '../../api'
 
 export default function Header() {
-  const { currentUser, setCurrentUser } = useContext(currentUserContext)
   const navigate = useNavigate()
-  const { currentPath } = useLocation()
+  const username = useSelector(selectUserName)
+  const { pathname } = useLocation()
   const clickButton = () => {
-    window.localStorage.removeItem('token')
-    setCurrentUser({})
-    const nextPage = '/login'
-    navigate(nextPage, { replace: true })
+    userLogout()
+    localStorage.clear()
+    navigate('/login', { replace: true })
   }
   function LogoutButton() {
-    if (currentPath !== '/login' && currentPath !== '/registration') {
-      return (
-        <>
-          <span>{currentUser.email}</span>
-          <Button buttonText="Logout" clickEvent={clickButton} />
-        </>
-      )
-    }
+    if (pathname === '/login' || pathname === '/registration') { return <></> }
+    return (
+      <>
+        <span>{username}</span>
+        <Button buttonText="Logout" clickEvent={clickButton} />
+      </>
+    )
   }
   return (
     <HeaderBox id="orange">

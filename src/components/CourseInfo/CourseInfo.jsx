@@ -1,18 +1,18 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PageHeader } from 'antd'
-import {
-  CourseInfoCard, Span, Row
-} from '../../common/CommonHTML'
-import { courseListContext } from '../../helpers/context'
+import { useSelector } from 'react-redux'
+import { Span, Row } from '../../common/CommonHTML'
+import { CourseInfoCard } from './style'
 import formatCreationDate from '../../helpers/formatCreation'
 import getDuration from '../../helpers/getCourseDuration'
 import getAuthorList from '../../helpers/getAuthorList'
+import { selectCourses } from '../../store/courses/courseSlice'
 
 export default function CourseInfo() {
   const navigate = useNavigate()
   const { courseId } = useParams()
-  const { CourseList } = useContext(courseListContext)
+  const CourseList = useSelector(selectCourses)
   const currentCourseId = courseId.slice(1)
   const currentCourseInfo = CourseList.find((item) => item.id === currentCourseId)
   const {

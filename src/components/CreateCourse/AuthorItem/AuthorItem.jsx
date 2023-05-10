@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Button from '../../../common/Button'
-import { StyledAuthorItem } from '../../../common/CommonHTML'
+import { StyledAuthorItem } from './style'
 
 function AuthorItem(props) {
   const { authorName, selectAuthor } = props
@@ -18,7 +18,7 @@ function AuthorItem(props) {
   )
 }
 
-AuthorItem.PropTypes = {
+AuthorItem.propTypes = {
   authorName: PropTypes.string,
   selectAuthor: PropTypes.func
 }
